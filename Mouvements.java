@@ -1,8 +1,6 @@
-package com.tpmif14.robot26;
+
 
 import lejos.nxt.LCD;
-import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 
 public final class Mouvements {
@@ -47,20 +45,13 @@ public final class Mouvements {
 	//Tester avec un nombre de tacho count (ralentissement aussi pour s'approcher de la valeur qui va bien?)
 	public static int avanceDUneCase(UltrasonicSensor sonar, int nbrot){
 		Moteur.resetTachoCount();
-		for(int i=0; i< nbrot; i++)
-		{
-			avanceDUnTourDeRoue(sonar);
-		}
-		/*avance();
-		sonar.ping();
-		int d = sonar.getDistance();
-		int D = d;
-		do
-		{
-			sonar.ping();
-			D = sonar.getDistance();
-		} while(d - D <= 15);
-		Moteur.stop();*/
+		 sonar.ping();
+		   int dist = sonar.getDistance();
+		   LCD.drawString(Integer.toString(dist),0,0); 
+		   if(dist > 10)
+		   {
+			   Moteur.rotate(360*nbrot);
+		   }
 		return Moteur.gauche().getTachoCount();
 		
 	}
@@ -92,6 +83,7 @@ public final class Mouvements {
 			//LCD.drawInt(i, 0, 0);
 		}
 		Moteur.stopD();
+		
 	}
 	
 	public static void tournerDroite()
@@ -112,7 +104,7 @@ public final class Mouvements {
 	{
 		Moteur.resetTachoCount();
 		int i = 0;
-		while(i<930)
+		while(i<890)
 		{
 			i = Moteur.droite().getTachoCount();
 			Moteur.droite().forward();
